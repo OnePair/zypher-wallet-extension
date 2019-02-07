@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="./libs/jquery-3.3.1.min.js"></script>
+
+  <script type="text/javascript" src="eth-account.js"></script>
+  <script type="text/javascript" src="wallet-page.js"></script>
+
+  <link rel="stylesheet" href="wallet-page.css">
+  <link rel="stylesheet" href="seed-phrase.css">
+  <link rel="stylesheet" href="create-password.css">
+  <link rel="stylesheet" href="eth-div.css">
+  <link rel="stylesheet" href="snackbar.css">
+</head>
+
+<body>
+  <div id="top-div">
+    <h1 id="top-title">Zypher Wallet</h1>
+  </div>
+  <div id="body-div">
+    <!--The left panel-->
+    <div id="accounts-div">
+      <div id="profile-div">
+        <img src="images/fingerprint.png">
+        <input id="profile-id-view" value="No ID found!" type="button">
+      </div>
+
+      <ul id="accounts-selection-div">
+        <li class="active"><a><img src="images/eth_logo.svg"><h3>ETH Account</h3></a></li>
+      </ul>
+    </div>
+
+    <div class="action-div" id="eth-div">
+      <!-- The account div -->
+      <div id="eth-account-div">
+        <div id="eth-address-div">
+          <img src="images/eth_logo.svg">
+          <h2 id="eth-balance-div">0 ETH</h2>
+          <button id="receive-eth-address-button">RECEIVE</button>
+        </div>
+
+        <!-- Register DID div-->
+        <div id="register-eth-did-div">
+          <h3>Decentralized Identifier</h3>
+          <button id="register-eth-did-button">REGISTER</button>
+          <button id="import-eth-did-button" disabled>IMPORT</button>
+        </div>
+
+        <!-- Register DID div-->
+        <div id="register-eth-username-div">
+          <h3>Decentralized Username</h3>
+          <button id="register-eth-username-button" disabled>REGISTER</button>
+        </div>
+
+        <!-- Settings div -->
+        <div id="eth-settings-div">
+          <h3>Settings</h3>
+          <button id="eth-get-seed-button" disabled>GET RECOVERY SEED</button>
+        </div>
+      </div>
+
+      <!--The account setup div-->
+      <div id="eth-account-setup-div">
+      </div>
+
+    </div>
+
+    <!--Create pasword div-->
+    <div class="action-div" id="create-password-container">
+      <div id="create-password-div">
+        <h2>Create Password</h2>
+        <input id="create-password-input" placeholder="Password" type="password">
+        <input id="confirm-password-input" placeholder="Confirm Password" type="password">
+
+        <span id="password-error-span"></span>
+        <button id="create-password-button">CREATE</button>
+        <span id="import-seed-span">Import with seed phrase</span>
+      </div>
+
+      <div id="import-seed-div">
+        <h3>Insert your recovery seed phrase.</h3>
+        <textarea id="seed-phrase-input"></textarea>
+
+        <button id="import-seed-back-button">BACK</button>
+        <button id="import-seed-button">RECOVER FROM SEED PHRASE</button>
+      </div>
+    </div>
+
+    <!-- Get seed phrase div -->
+    <div id="seed-phrase-div">
+
+      <!-- The seed phrase view-->
+      <div id="seed-phrase-view-div">
+        <h3>These 24 words are the only way to restore your AuthID account.
+         Save them somewhere safe and secret.</h3>
+        <textarea id="seed-view" readonly></textarea>
+        <button id="copied-seed-button">I'VE COPIED IT SOMEWHERE SAFE</button>
+      </div>
+
+      <div id="seed-confirm-div">
+        <h3>Please confirm that you've written down the recovery words.</h3>
+
+        <input class="seed-word-confirm-input" placeholder="1 word" id="seed-word-confirm1" type="text">
+        <input class="seed-word-confirm-input" placeholder="2 word" id="seed-word-confirm2" type="text">
+        <input class="seed-word-confirm-input" placeholder="3 word" id="seed-word-confirm3" type="text">
+        <input class="seed-word-confirm-input" placeholder="4 word" id="seed-word-confirm4" type="text">
+        <input class="seed-word-confirm-input" placeholder="5 word" id="seed-word-confirm5" type="text">
+        <input class="seed-word-confirm-input" placeholder="6 word" id="seed-word-confirm6" type="text">
+        <input class="seed-word-confirm-input" placeholder="7 word" id="seed-word-confirm7" type="text">
+        <input class="seed-word-confirm-input" placeholder="8 word" id="seed-word-confirm8" type="text">
+        <input class="seed-word-confirm-input" placeholder="9 word" id="seed-word-confirm9" type="text">
+        <input class="seed-word-confirm-input" placeholder="10 word" id="seed-word-confirm10" type="text">
+        <input class="seed-word-confirm-input" placeholder="11 word" id="seed-word-confirm11" type="text">
+        <input class="seed-word-confirm-input" placeholder="12 word" id="seed-word-confirm12" type="text">
+        <input class="seed-word-confirm-input" placeholder="13 word" id="seed-word-confirm13" type="text">
+        <input class="seed-word-confirm-input" placeholder="14 word" id="seed-word-confirm14" type="text">
+        <input class="seed-word-confirm-input" placeholder="15 word" id="seed-word-confirm15" type="text">
+        <input class="seed-word-confirm-input" placeholder="16 word" id="seed-word-confirm16" type="text">
+        <input class="seed-word-confirm-input" placeholder="17 word" id="seed-word-confirm17" type="text">
+        <input class="seed-word-confirm-input" placeholder="18 word" id="seed-word-confirm18" type="text">
+        <input class="seed-word-confirm-input" placeholder="19 word" id="seed-word-confirm19" type="text">
+        <input class="seed-word-confirm-input" placeholder="20 word" id="seed-word-confirm20" type="text">
+        <input class="seed-word-confirm-input" placeholder="21 word" id="seed-word-confirm21" type="text">
+        <input class="seed-word-confirm-input" placeholder="22 word" id="seed-word-confirm22" type="text">
+        <input class="seed-word-confirm-input" placeholder="23 word" id="seed-word-confirm23" type="text">
+        <input class="seed-word-confirm-input" placeholder="24 word" id="seed-word-confirm24" type="text">
+
+        <br></br>
+        <button id="confirm-seed-button">CONFIRM</button>
+        <button id="seed-confirm-back-button">I FORGOT!</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="snackbar" id="snackbar">
+</body>
+
+</html>

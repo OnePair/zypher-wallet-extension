@@ -1,0 +1,64 @@
+#eth-account-div {
+  display: none;
+}
+
+#eth-account-setup-div {
+  display: none;
+}
+
+#eth-address-div {
+  padding: 2em;
+  border-bottom: 2px solid #999999;
+}
+
+#eth-address-div>img {
+  width: 4em;
+  margin-right: 2em;
+}
+
+#eth-balance-div {
+  font-size: 2em;
+}
+
+#eth-address-div>img, #eth-balance-div {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#receive-eth-address-button {
+  float: right;
+}
+
+button {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  font-size: 1.2em;
+}
+
+h3 {
+  font-size: 1.7em;
+}
+
+#register-eth-did-div {
+  padding-left: 2em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #999999;
+}
+
+#import-eth-did-button {
+  margin-left: 1em;
+}
+
+#register-eth-username-div {
+  padding-left: 2em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #999999;
+}
+
+#eth-settings-div {
+  padding-left: 2em;
+  padding-bottom: 1em;
+  border-bottom: 2px solid #999999;
+}

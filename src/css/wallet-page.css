@@ -1,0 +1,110 @@
+html,body {
+  margin: 0;
+  background-color: #DEDEE2;
+  height: 100%;
+}
+
+#top-div {
+  background-color: #CCC9DC;
+  height: 10em;
+  text-align: center;
+}
+
+#top-title {
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 0.5em;
+  padding-left: 0.1;
+  width: 60%;
+  text-align: left;
+  font-size: 3em;
+  color: #595959;
+}
+
+#body-div {
+  background-color: white;
+  width: 60%;
+  height: 77%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: -3em;
+  box-shadow: 5px 10px 8px #888888;
+}
+
+#accounts-div {
+  background-color: #D6D6DB;
+  width: 20em;
+  height: 100%
+}
+
+#profile-div {
+  text-align: center;
+  padding-top: 3em;
+}
+
+#profile-div>img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#profile-id-view {
+  margin-top: 1em;
+  text-align: center;
+  width: 80%;
+  padding: 0.2em;
+  background-color: #DEDEE2;
+  border: 0.1em solid #999999;
+  cursor: pointer;
+}
+
+#accounts-selection-div {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 3em;
+}
+
+#accounts-selection-div>li {
+  color: white;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  padding-left: 1em;
+  cursor: pointer;
+  color: black;
+}
+
+#accounts-selection-div>li.active {
+  background-color: #595959;
+  color: white;
+}
+
+#accounts-selection-div>li:hover:not(.active) {
+  background-color: #808080;
+  color: white;
+}
+
+#accounts-selection-div>li a>h3 {
+  font-size: 1.5em;
+}
+
+#accounts-selection-div>li a>img, #accounts-selection-div>li a>h3 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#accounts-selection-div>li a>img {
+  width: 3em;
+  margin-right: 2em;
+}
+
+.action-div {
+  width: calc(100% - 20.5em);
+  height: 100%;
+  vertical-align: top;
+  overflow: auto;
+}
+
+#accounts-div, .action-div {
+  display: inline-block;
+}

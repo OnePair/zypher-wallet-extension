@@ -1,0 +1,60 @@
+#seed-phrase-div {
+  display: none;
+  text-align: center;
+  padding: 1em;
+}
+
+#seed-phrase-view-div {
+  display: none;
+}
+
+#seed-confirm-div {
+  display: none;
+}
+
+#seed-phrase-view-div>h3 {
+  font-size: 1.6em;
+  font-weight: 500;
+}
+
+#seed-confirm-div > h3 {
+  font-size: 1.6em;
+  font-weight: 500;
+}
+
+#seed-view {
+  padding: 1em;
+  font-size: 2em;
+  line-height: 1.5em;
+  width: 80%;
+  height: 10em;
+  resize: none;
+}
+
+#copied-seed-button {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  font-size: 1.2em;
+  margin-top: 1em;
+}
+
+.seed-word-confirm-input {
+  font-size: 1.2em;
+  width: 5em;
+  padding: 0.5em;
+  margin-left: 1em;
+  margin: 0.5em;
+  text-align: center;
+  border-radius: 0.2em;
+}
+
+#seed-confirm-div > button {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  font-size: 1.2em;
+  margin: 1em;
+}
