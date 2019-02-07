@@ -72632,7 +72632,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
       case "createJwt":
         var requestID = generateID();
-        userConfirmation("createJwt", requestID, null, sender);
+        userConfirmation("createJwt", requestID, request.params, sender);
 
         sendResponse({
           requestID: requestID
@@ -72641,7 +72641,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
       case "getPublicKeys":
         var requestID = generateID();
-        userConfirmation("getPublicKeys", requestID, request.params, sender);
+        userConfirmation("getPublicKeys", requestID, null, sender);
 
         sendResponse({
           requestID: requestID
