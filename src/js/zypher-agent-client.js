@@ -1,14 +1,7 @@
 var constants = require("./constants");
-var ZypherWallet = require("zypher-client").ZypherWallet;
-var ZypherAgent = require("zypher-client").ZypherAgent;
 
-/*
- * TODO: set authidProvider to this in web pages
- */
 module.exports.ZypherAgentClient = class {
   constructor() {
-    this.zypherAgent = new ZypherAgent(constants.AUTHID_AGENT_HOST);
-    this.zypherWallet = new ZypherWallet(constants.AUTHID_AGENT_HOST);
 
     this.initMessageListener();
     this.requests = {};
@@ -212,14 +205,21 @@ module.exports.ZypherAgentClient = class {
   verifyJwt(jwt, id) {
     return new Promise(async (onSuccess, onError) => {
       try {
-        var verificationResult = await this.zypherAgent.verifyJwt(jwt, id);
-
-        var result = {
-          result: true,
-          verification: verificationResult
-        }
-
-        onSuccess(result);
+        chrome.runtime.sendMessage({
+          method: "verifyJwt",
+          params: {
+            jwt: jwt,
+            id: id
+          }
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
       } catch (err) {
         onError(err);
       }
@@ -229,14 +229,23 @@ module.exports.ZypherAgentClient = class {
   getInfo() {
     return new Promise(async (onSuccess, onError) => {
       try {
-        var protocol = await this.getProtocol();
-        var info = await this.zypherWallet.getInfo(protocol);
-        onSuccess(info);
+        chrome.runtime.sendMessage({
+          method: "getInfo"
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
       } catch (err) {
         onError(err);
       }
     });
   }
+
   getPublicKeys() {
     return new Promise(async (onSuccess, onError) => {
       try {

@@ -215,7 +215,8 @@ function getInfo(requestID) {
       onSuccess();
     } catch (err) {
       broadcastResponse(requestID, {
-        result: false
+        result: false,
+        err: err
       });
     }
   });

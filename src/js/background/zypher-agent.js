@@ -18,10 +18,21 @@ chrome.browserAction.onClicked.addListener((tab) => {
 });
 
 
+function broadcastAwaitedResponse(request) {
+  var tabId = methodRequests[request.requestID];
+  delete methodRequests[request.requestID];
+
+  chrome.tabs.sendMessage(tabId, {
+    type: "response",
+    requestID: request.requestID,
+    result: request.result
+  });
+}
+
 /*
  * TODO: sendResponse
  */
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   if (!("method" in request)) {
     sendResponse({
       err: "Invalid request format"
@@ -29,15 +40,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   } else {
     switch (request.method) {
       case "respond":
-        var tabId = methodRequests[request.requestID];
-        delete methodRequests[request.requestID];
-
-        chrome.tabs.sendMessage(tabId, {
-          type: "response",
-          requestID: request.requestID,
-          result: request.result
-        });
-
+        broadcastAwaitedResponse(request);
         break;
 
       case "setProtocol":
@@ -124,6 +127,72 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         sendResponse({
           requestID: requestID
         });
+        break;
+
+      case "verifyJwt":
+        var requestID = generateID();
+        methodRequests[requestID] = sender.tab.id;
+
+        sendResponse({
+          requestID: requestID
+        });
+
+        zypherAgent.verifyJwt(request.params.jwt, request.params.id)
+          .then((verificationResult) => {
+            var result = {
+              result: true,
+              verification: verificationResult
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          }).catch((err) => {
+            var result = {
+              result: false,
+              err: err
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          });
+
+        break;
+
+      case "getInfo":
+        var requestID = generateID();
+        methodRequests[requestID] = sender.tab.id;
+
+        sendResponse({
+          requestID: requestID
+        });
+
+        zypherWallet.getInfo(protocol)
+          .then((info) => {
+            var result = {
+              result: true,
+              info: info
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          }).catch((err) => {
+            var result = {
+              result: false,
+              err: err
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          });
+
         break;
 
       default:

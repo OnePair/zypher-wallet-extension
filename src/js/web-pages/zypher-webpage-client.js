@@ -187,7 +187,6 @@ class ZypherAuthIDClient {
       }
 
       this.addResponseListener(requestID, (result) => {
-        console.log("VERIFY JWT RESULT:", result);
         if (result["result"]) {
           onSuccess(result["verification"]);
         } else {

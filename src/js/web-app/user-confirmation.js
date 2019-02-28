@@ -151,6 +151,7 @@ function registerDID(requestID) {
             onSuccess();
             window.close();
           } catch (err) {
+            console.log("error:", err);
             await respondToAgent(requestID, {
               result: false
             });
