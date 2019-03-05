@@ -15,7 +15,7 @@ var zypherAgentClient;
 module.exports.loadEthAccount = () => {
   if (window.zypherWallet == undefined) {
     window.zypherWallet = new ZypherWallet(constants.AUTHID_AGENT_HOST);
-    window.web3 = new Web3(new Web3.providers.WebsocketProvider(constants.ETH_NODE));
+    window.web3 = new Web3(new Web3.providers.HttpProvider(constants.ETH_NODE));
     window.zypherAgentClient = new ZypherAgentClient();
   }
 
@@ -79,8 +79,8 @@ function updateAccountDetails(password) {
 }
 
 /*
-* TODO: disable register did div when needed
-*/
+ * TODO: disable register did div when needed
+ */
 function loadAccount(accountDetails) {
   return new Promise(async (onSuccess, onError) => {
     // Set the current protocol to ETH
@@ -118,6 +118,7 @@ function updateAddressBalance(address) {
       onSuccess();
       await updateAddressBalance(address);
     }, 3000);
+
   });
 }
 
