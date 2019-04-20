@@ -47,6 +47,29 @@ class ZypherAuthIDClient {
     });
   }
 
+  registerName(name) {
+    return new Promise(async (onSuccess, onError) => {
+      var requestID = generateID();
+      var request = {
+        requestType: "zypherRequest",
+        requestID: requestID,
+        method: "registerName",
+        params: {
+          name: name
+        }
+      }
+      this.addResponseListener(requestID, (result) => {
+        if (result["result"]) {
+          onSuccess(result["txHash"]);
+        } else {
+          onError(result)
+        }
+      });
+
+      window.postMessage(request, "*");
+    });
+  }
+
   importDID(did) {
     return new Promise(async (onSuccess, onError) => {
       var requestID = generateID();
@@ -198,6 +221,78 @@ class ZypherAuthIDClient {
     });
   }
 
+  createAuthRequest(id) {
+    return new Promise(async (onSuccess, onError) => {
+      var requestID = generateID();
+      var request = {
+        requestType: "zypherRequest",
+        requestID: requestID,
+        method: "createAuthRequest",
+        params: {
+          id: id
+        }
+      }
+
+      this.addResponseListener(requestID, (result) => {
+        if (result["result"]) {
+          onSuccess(result["authRequest"]);
+        } else {
+          onError(result)
+        }
+      });
+
+      window.postMessage(request, "*");
+    });
+  }
+
+  signAuthRequest(authRequest) {
+    return new Promise(async (onSuccess, onError) => {
+      var requestID = generateID();
+      var request = {
+        requestType: "zypherRequest",
+        requestID: requestID,
+        method: "signAuthRequest",
+        params: {
+          authRequest: authRequest
+        }
+      }
+
+      this.addResponseListener(requestID, (result) => {
+        if (result["result"]) {
+          onSuccess(result["authResponse"]);
+        } else {
+          onError(result)
+        }
+      });
+
+      window.postMessage(request, "*");
+    });
+  }
+
+  verifyAuthResponse(authResponse) {
+    return new Promise(async (onSuccess, onError) => {
+      var requestID = generateID();
+      var request = {
+        requestType: "zypherRequest",
+        requestID: requestID,
+        method: "verifyAuthResponse",
+        params: {
+          authResponse: authResponse
+        }
+      }
+
+      this.addResponseListener(requestID, (result) => {
+        if (result["result"]) {
+          onSuccess(result["verificationResult"]);
+        } else {
+          onError(result)
+        }
+      });
+
+      window.postMessage(request, "*");
+    });
+  }
+
   getInfo() {
     return new Promise(async (onSuccess, onError) => {
       var requestID = generateID();
@@ -261,7 +356,8 @@ class ZypherAuthIDClient {
 }
 
 function generateID() {
-  return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  return Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15);
 }
 
 global.authID = new ZypherAuthIDClient();

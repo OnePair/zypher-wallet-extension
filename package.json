@@ -15,7 +15,6 @@
     "mkdirp": "^0.5.1",
     "uninstall": "0.0.0",
     "web3": "^1.0.0-beta.41",
-    "zypher-client": "file:../zypher-client",
-    "zypher-wallet": "file:../zypher-wallet"
+    "zypher-client": "git+https://github.com/OnePair/zypher-client.git#5084625fe6e79690d74cf0938c7b3afb7e00459c"
   }
 }

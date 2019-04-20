@@ -35,8 +35,11 @@ $(document).ready(() => {
           registerDID(request.requestID);
           break;
 
+        case "registerName":
+          registerName(request.requestID, request.params.name);
+          break;
+
         case "importDID":
-          console.log("import did request:", request);
           importDID(request.requestID, request.params.did);
           break;
 
@@ -56,6 +59,10 @@ $(document).ready(() => {
 
         case "createJwt":
           createJwt(request.requestID, request.params.claims, request.params.expiresIn);
+          break;
+
+        case "signAuthRequest":
+          signAuthRequest(request.requestID, request.params.authRequest);
           break;
 
         case "getPublicKeys":
@@ -142,7 +149,7 @@ function registerDID(requestID) {
 
           try {
             var did = await window.zypherAgent.registerDID(protocol, password);
-            await updateAccountDetails(protocol, password, did);
+            await updateAccountDetails(protocol, password);
             await respondToAgent(requestID, {
               result: true,
               did: did
@@ -160,7 +167,52 @@ function registerDID(requestID) {
             onError(err);
             window.close();
           }
+        });
+      }
+    });
+  });
+}
 
+function registerName(requestID, name) {
+  return new Promise(async (onSuccess, onError) => {
+    var protocol = await window.zypherAgentClient.getProtocol();
+
+    getAccountInfo(protocol, async (accountInfo) => {
+      if ("name" in accountInfo) {
+        await respondToAgent(requestID, {
+          result: false
+        });
+        alert("An name already exists for this account.");
+        window.close();
+      } else {
+        $("#command-text-view").val("REGISTER NAME");
+
+        /*
+         * Here is where the real action happens
+         */
+        $("#confirm-button").click(async () => {
+          var password = $("#password-input").val();
+
+          try {
+            var txHash = await window.zypherAgent.registerName(protocol, password, name);
+            await updateAccountDetails(protocol, password);
+            await respondToAgent(requestID, {
+              result: true,
+              txHash: txHash
+            });
+
+            onSuccess();
+            window.close();
+          } catch (err) {
+            console.log("error:", err);
+            await respondToAgent(requestID, {
+              result: false
+            });
+
+            alert("Could not register name!");
+            onError(err);
+            window.close();
+          }
         });
       }
     });
@@ -189,7 +241,7 @@ function importDID(requestID, did) {
 
           try {
             await window.zypherAgent.importDID(password, did);
-            await updateAccountDetails(protocol, password, did);
+            await updateAccountDetails(protocol, password);
             await respondToAgent(requestID, {
               result: true
             });
@@ -342,10 +394,48 @@ function createJwt(requestID, claims, expiresIn) {
 
         try {
           var jwt =
-            await window.zypherAgent.createJwt(protocol, password, claims, password);
+            await window.zypherAgent.createJwt(protocol, password, claims);
           await respondToAgent(requestID, {
             result: true,
             jwt: jwt
+          });
+
+          onSuccess();
+          window.close();
+        } catch (err) {
+          console.log("error:", err);
+          await respondToAgent(requestID, {
+            result: false
+          });
+
+          alert("Could not sign!");
+          onError(err);
+          window.close();
+        }
+      });
+    });
+  });
+}
+
+function signAuthRequest(requestID, authRequest) {
+  return new Promise(async (onSuccess, onError) => {
+    var protocol = await window.zypherAgentClient.getProtocol();
+    getAccountInfo(protocol, async (accountInfo) => {
+
+      $("#command-text-view").val("AUTHENTICATE");
+
+      /*
+       * Here is where the real action happens
+       */
+      $("#confirm-button").click(async () => {
+        var password = $("#password-input").val();
+
+        try {
+          var authResponse =
+            await window.zypherAgent.signAuthRequest(password, authRequest);
+          await respondToAgent(requestID, {
+            result: true,
+            authResponse: authResponse
           });
 
           onSuccess();
@@ -446,6 +536,9 @@ function updateAccountDetails(protocol, password) {
 
     if ("did" in walletInfo["info"])
       accountInfo["did"] = walletInfo["info"]["did"];
+
+    if ("name" in walletInfo["info"])
+      accountInfo["name"] = walletInfo["info"]["name"];
 
     // store the account info
     chrome.storage.local.set({

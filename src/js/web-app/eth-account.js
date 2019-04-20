@@ -63,6 +63,9 @@ function updateAccountDetails(password) {
       address: address
     };
 
+    if ("name" in walletInfo["info"])
+      accountInfo["name"] = walletInfo["info"]["name"];
+
     if ("did" in walletInfo["info"])
       accountInfo["did"] = walletInfo["info"]["did"];
 
@@ -90,7 +93,14 @@ function loadAccount(accountDetails) {
 
     // Set the did
     if ("did" in ethAccount) {
-      $("#profile-id-view").val(ethAccount["did"]);
+      var profileId;
+
+      if ("name" in ethAccount)
+        profileId = ethAccount["name"] + ".eth";
+      else
+        profileId = ethAccount["did"];
+
+      $("#profile-id-view").val(profileId);
       $("#register-eth-did-button").prop("disabled", true);
     }
 

@@ -81,6 +81,29 @@ module.exports.ZypherAgentClient = class {
     });
   }
 
+  registerName(name) {
+    return new Promise(async (onSuccess, onError) => {
+      try {
+        chrome.runtime.sendMessage({
+          method: "registerName",
+          params: {
+            name: name
+          }
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
   importDID(did) {
     return new Promise(async (onSuccess, onError) => {
       try {
@@ -210,6 +233,75 @@ module.exports.ZypherAgentClient = class {
           params: {
             jwt: jwt,
             id: id
+          }
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  createAuthRequest(id) {
+    return new Promise(async (onSuccess, onError) => {
+      try {
+        chrome.runtime.sendMessage({
+          method: "createAuthRequest",
+          params: {
+            id: id
+          }
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  signAuthRequest(authRequest) {
+    return new Promise(async (onSuccess, onError) => {
+      try {
+        chrome.runtime.sendMessage({
+          method: "signAuthRequest",
+          params: {
+            authRequest: authRequest
+          }
+        }, (response) => {
+          this.addResponseListener(response.requestID, (result) => {
+            if (result["result"]) {
+              onSuccess(result);
+            } else {
+              onError(result)
+            }
+          });
+        });
+      } catch (err) {
+        onError(err);
+      }
+    });
+  }
+
+  verifyAuthResponse(authResponse) {
+    return new Promise(async (onSuccess, onError) => {
+      try {
+        chrome.runtime.sendMessage({
+          method: "verifyAuthResponse",
+          params: {
+            authResponse: authResponse
           }
         }, (response) => {
           this.addResponseListener(response.requestID, (result) => {

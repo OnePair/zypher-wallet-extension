@@ -26,6 +26,10 @@ window.addEventListener("message", (event) => {
         registerDID(request.requestID);
         break;
 
+      case "registerName":
+        registerName(request.requestID, request.params);
+        break;
+
       case "importDID":
         importDID(request.requestID, request.params);
         break;
@@ -48,6 +52,18 @@ window.addEventListener("message", (event) => {
 
       case "verifyJwt":
         verifyJwt(request.requestID, request.params);
+        break;
+
+      case "createAuthRequest":
+        createAuthRequest(request.requestID, request.params);
+        break;
+
+      case "signAuthRequest":
+        signAuthRequest(request.requestID, request.params);
+        break;
+
+      case "verifyAuthResponse":
+        verifyAuthResponse(request.requestID, request.params);
         break;
 
       case "getInfo":
@@ -84,6 +100,22 @@ function registerDID(requestID) {
   return new Promise(async (onSuccess, onError) => {
     try {
       var result = await zypherAgentClient.registerDID();
+
+      broadcastResponse(requestID, result);
+
+      onSuccess();
+    } catch (err) {
+      broadcastResponse(requestID, {
+        result: false
+      });
+    }
+  });
+}
+
+function registerName(requestID, params) {
+  return new Promise(async (onSuccess, onError) => {
+    try {
+      var result = await zypherAgentClient.registerName(params.name);
 
       broadcastResponse(requestID, result);
 
@@ -187,6 +219,57 @@ function verifyJwt(requestID, params) {
     try {
       var result =
         await zypherAgentClient.verifyJwt(params.jwt, params.id);
+
+      broadcastResponse(requestID, result);
+
+      onSuccess();
+    } catch (err) {
+      broadcastResponse(requestID, {
+        result: false
+      });
+    }
+  });
+}
+
+function createAuthRequest(requestID, params) {
+  return new Promise(async (onSuccess, onError) => {
+    try {
+      var result =
+        await zypherAgentClient.createAuthRequest(params.id);
+
+      broadcastResponse(requestID, result);
+
+      onSuccess();
+    } catch (err) {
+      broadcastResponse(requestID, {
+        result: false
+      });
+    }
+  });
+}
+
+function signAuthRequest(requestID, params) {
+  return new Promise(async (onSuccess, onError) => {
+    try {
+      var result =
+        await zypherAgentClient.signAuthRequest(params.authRequest);
+
+      broadcastResponse(requestID, result);
+
+      onSuccess();
+    } catch (err) {
+      broadcastResponse(requestID, {
+        result: false
+      });
+    }
+  });
+}
+
+function verifyAuthResponse(requestID, params) {
+  return new Promise(async (onSuccess, onError) => {
+    try {
+      var result =
+        await zypherAgentClient.verifyAuthResponse(params.authResponse);
 
       broadcastResponse(requestID, result);
 

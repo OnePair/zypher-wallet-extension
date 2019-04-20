@@ -75,6 +75,15 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
         });
         break;
 
+      case "registerName":
+        var requestID = generateID();
+        userConfirmation("registerName", requestID, request.params, sender);
+
+        sendResponse({
+          requestID: requestID
+        });
+        break;
+
       case "importDID":
         var requestID = generateID();
         userConfirmation("importDID", requestID, request.params, sender);
@@ -162,6 +171,48 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
         break;
 
+      case "createAuthRequest":
+        var requestID = generateID();
+        methodRequests[requestID] = sender.tab.id;
+
+        sendResponse({
+          requestID: requestID
+        });
+
+        zypherAgent.createAuthRequest(request.params.id)
+          .then((authRequest) => {
+            var result = {
+              result: true,
+              authRequest: authRequest
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          }).catch((err) => {
+            var result = {
+              result: false,
+              err: err
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          });
+
+        break;
+
+      case "signAuthRequest":
+        var requestID = generateID();
+        userConfirmation("signAuthRequest", requestID, request.params, sender);
+
+        sendResponse({
+          requestID: requestID
+        });
+        break;
+
       case "getInfo":
         var requestID = generateID();
         methodRequests[requestID] = sender.tab.id;
@@ -175,6 +226,38 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
             var result = {
               result: true,
               info: info
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          }).catch((err) => {
+            var result = {
+              result: false,
+              err: err
+            }
+
+            broadcastAwaitedResponse({
+              requestID: requestID,
+              result: result
+            });
+          });
+        break;
+
+      case "verifyAuthResponse":
+        var requestID = generateID();
+        methodRequests[requestID] = sender.tab.id;
+
+        sendResponse({
+          requestID: requestID
+        });
+
+        zypherAgent.verifyAuthResponse(request.params.authResponse)
+          .then((verificationResult) => {
+            var result = {
+              result: true,
+              verificationResult: verificationResult
             }
 
             broadcastAwaitedResponse({
