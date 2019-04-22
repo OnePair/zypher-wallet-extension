@@ -394,7 +394,8 @@ function createJwt(requestID, claims, expiresIn) {
 
         try {
           var jwt =
-            await window.zypherAgent.createJwt(protocol, password, claims);
+            await window.zypherAgent.createJwt(protocol, password, claims,
+              expiresIn);
           await respondToAgent(requestID, {
             result: true,
             jwt: jwt
