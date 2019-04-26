@@ -286,10 +286,9 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   }
 });
 
-
 function userConfirmation(method, requestID, params, sender) {
   return new Promise(async (onSuccess) => {
-    var tab = await createTab("user-confirmation.html");
+    var tab = await createWindow("user-confirmation.html");
 
     methodRequests[requestID] = sender.tab.id;
 
@@ -298,23 +297,31 @@ function userConfirmation(method, requestID, params, sender) {
       requestID: requestID,
       params: params
     });
+
     onSuccess();
   });
 }
 
-
-function createTab(url) {
+/*
+ * Returns tab
+ */
+function createWindow(url) {
   return new Promise((onSuccess) => {
-    chrome.tabs.create({
-      url
-    }, async tab => {
-      chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
-        if (info.status === 'complete' && tabId === tab.id) {
-          chrome.tabs.onUpdated.removeListener(listener);
-          onSuccess(tab);
-        }
+    chrome.windows.create({
+        url: url,
+        type: "popup",
+        width: 330,
+        height: 480
+      },
+      async (window) => {
+        var tab = window.tabs[0];
+        chrome.tabs.onUpdated.addListener(function listener(tabId, info) {
+          if (info.status === "complete" && tabId === tab.id) {
+            chrome.tabs.onUpdated.removeListener(listener);
+            onSuccess(tab);
+          }
+        });
       });
-    });
   });
 }
 

@@ -16,6 +16,7 @@ var zypherAgentClient; // The extenstion background client
  * TODO: respond on window close
  */
 $(document).ready(() => {
+
   window.zypherWallet = new ZypherWallet(constants.AUTHID_AGENT_HOST);
   window.zypherAgent = new ZypherAgent(constants.AUTHID_AGENT_HOST);
   window.zypherAgentClient = new ZypherAgentClient();
@@ -93,7 +94,7 @@ function getAddress(requestID) {
     var protocol = await window.zypherAgentClient.getProtocol();
 
     getAccountInfo(protocol, async (accountInfo) => {
-      $("#command-text-view").val("GET ADDRESS");
+      $("#command-text-view").html("Get address");
       /*
        * Here is where the real action happens
        */
@@ -117,7 +118,6 @@ function getAddress(requestID) {
             result: false
           });
 
-          alert("Could not get address!");
           onError(err);
           window.close();
         }
@@ -136,10 +136,9 @@ function registerDID(requestID) {
         await respondToAgent(requestID, {
           result: false
         });
-        alert("An ID already exists for this account.");
         window.close();
       } else {
-        $("#command-text-view").val("REGISTER DID");
+        $("#command-text-view").html("Register DID");
 
         /*
          * Here is where the real action happens
@@ -163,7 +162,6 @@ function registerDID(requestID) {
               result: false
             });
 
-            alert("Could not register DID!");
             onError(err);
             window.close();
           }
@@ -182,10 +180,9 @@ function registerName(requestID, name) {
         await respondToAgent(requestID, {
           result: false
         });
-        alert("An name already exists for this account.");
         window.close();
       } else {
-        $("#command-text-view").val("REGISTER NAME");
+        $("#command-text-view").html("Register name");
 
         /*
          * Here is where the real action happens
@@ -209,7 +206,6 @@ function registerName(requestID, name) {
               result: false
             });
 
-            alert("Could not register name!");
             onError(err);
             window.close();
           }
@@ -228,10 +224,9 @@ function importDID(requestID, did) {
         await respondToAgent(requestID, {
           result: false
         });
-        alert("An ID already exists for this account.");
         window.close();
       } else {
-        $("#command-text-view").val("IMPORT DID");
+        $("#command-text-view").html("Import DID");
 
         /*
          * Here is where the real action happens
@@ -253,7 +248,6 @@ function importDID(requestID, did) {
               result: false
             });
 
-            alert("Could not import DID!");
             onError(err);
             window.close();
           }
@@ -269,7 +263,7 @@ function authorizeProcessor(requestID, processorId, publicKey, sig, auth) {
 
     getAccountInfo(protocol, async (accountInfo) => {
 
-      $("#command-text-view").val("AUTHORIZE");
+      $("#command-text-view").html("Authorize");
 
       /*
        * Here is where the real action happens
@@ -293,7 +287,6 @@ function authorizeProcessor(requestID, processorId, publicKey, sig, auth) {
             result: false
           });
 
-          alert("Could not authorize processor!");
           onError(err);
           window.close();
         }
@@ -308,7 +301,7 @@ function importProcessor(requestID, processorId, processorToken, privateKey) {
 
     getAccountInfo(protocol, async (accountInfo) => {
 
-      $("#command-text-view").val("IMPORT");
+      $("#command-text-view").html("Import");
 
       /*
        * Here is where the real action happens
@@ -332,7 +325,6 @@ function importProcessor(requestID, processorId, processorToken, privateKey) {
             result: false
           });
 
-          alert("Could not import processor!");
           onError(err);
           window.close();
         }
@@ -347,7 +339,7 @@ function revokeProcessor(requestID, processorId) {
 
     getAccountInfo(protocol, async (accountInfo) => {
 
-      $("#command-text-view").val("REVOKE");
+      $("#command-text-view").html("Revoke");
 
       /*
        * Here is where the real action happens
@@ -369,7 +361,6 @@ function revokeProcessor(requestID, processorId) {
             result: false
           });
 
-          alert("Could not revoke processor!");
           onError(err);
           window.close();
         }
@@ -384,7 +375,7 @@ function createJwt(requestID, claims, expiresIn) {
 
     getAccountInfo(protocol, async (accountInfo) => {
 
-      $("#command-text-view").val("SIGN");
+      $("#command-text-view").html("Sign");
 
       /*
        * Here is where the real action happens
@@ -409,7 +400,6 @@ function createJwt(requestID, claims, expiresIn) {
             result: false
           });
 
-          alert("Could not sign!");
           onError(err);
           window.close();
         }
@@ -423,7 +413,7 @@ function signAuthRequest(requestID, authRequest) {
     var protocol = await window.zypherAgentClient.getProtocol();
     getAccountInfo(protocol, async (accountInfo) => {
 
-      $("#command-text-view").val("AUTHENTICATE");
+      $("#command-text-view").html("Authenticate");
 
       /*
        * Here is where the real action happens
@@ -447,7 +437,6 @@ function signAuthRequest(requestID, authRequest) {
             result: false
           });
 
-          alert("Could not sign!");
           onError(err);
           window.close();
         }
@@ -461,7 +450,7 @@ function getPublicKeys(requestID) {
     var protocol = await window.zypherAgentClient.getProtocol();
 
     getAccountInfo(protocol, async (accountInfo) => {
-      $("#command-text-view").val("GET PUBLIC KEYS");
+      $("#command-text-view").html("Get public keys");
       /*
        * Here is where the real action happens
        */
@@ -485,7 +474,6 @@ function getPublicKeys(requestID) {
             result: false
           });
 
-          alert("Could not get public keys!");
           onError(err);
           window.close();
         }
