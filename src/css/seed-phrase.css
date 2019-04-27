@@ -12,49 +12,30 @@
   display: none;
 }
 
-#seed-phrase-view-div>h3 {
-  font-size: 1.6em;
-  font-weight: 500;
-}
-
-#seed-confirm-div > h3 {
-  font-size: 1.6em;
-  font-weight: 500;
-}
-
 #seed-view {
   padding: 1em;
-  font-size: 2em;
-  line-height: 1.5em;
+  font-size: 1.3em;
   width: 80%;
   height: 10em;
   resize: none;
-}
-
-#copied-seed-button {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 0.7em;
-  padding-bottom: 0.7em;
-  font-size: 1.2em;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .seed-word-confirm-input {
-  font-size: 1.2em;
   width: 5em;
   padding: 0.5em;
   margin-left: 1em;
   margin: 0.5em;
   text-align: center;
-  border-radius: 0.2em;
 }
 
-#seed-confirm-div > button {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 0.7em;
-  padding-bottom: 0.7em;
-  font-size: 1.2em;
-  margin: 1em;
+.seed-word-confirm-input, .seed-word-confirm-input {
+  display: inline-block;
+}
+
+#confirm-seed-button {
+  margin-right: 1em;
 }

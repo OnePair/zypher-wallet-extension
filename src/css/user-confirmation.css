@@ -9,47 +9,6 @@ body {
   text-align: center;
 }
 
-/*
-#top-div {
-  background-color: #CCC9DC;
-  height: 10em;
-  text-align: center;
-}*/
-
-/*
-#top-title {
-  margin-top: 0;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 0.5em;
-  padding-left: 0.1;
-  width: 60%;
-  text-align: left;
-  font-size: 3em;
-  color: #595959;
-}*/
-
-/*
-#body-div {
-  padding-top: 1em;
-  background-color: white;
-  width: 95%;
-  height: 95%;
-}*/
-
-/*
-#command-text-view {
-  padding: 0.5em;
-  background-color: #595959;
-  color: white;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.4em;
-  border-radius: 0.3em;
-  margin: 1em;
-  border: none;
-}*/
-
 #command-text-view {
   padding-top: 0.5em;
   padding-bottom: 0.5em;
@@ -76,32 +35,15 @@ img {
 #password-input {
   margin-left: auto;
   margin-right: auto;
-  font-size: 1em;
-  padding: 0.5em;
   margin-top: 1em;
-  width: 80%;
   text-align: center;
+  width: 90%;
 }
 
 #password-input-div>span {
   font-size: 1.7em;
   margin-bottom: 1em;
 }
-
-/*
-#buttons-div {
-  text-align: center;
-}
-
-button {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 0.7em;
-  padding-bottom: 0.7em;
-  font-size: 1.2em;
-  margin: 0.5em;
-  width: 40%;
-}*/
 
 button {
   margin: 1em;
@@ -115,6 +57,6 @@ button {
 #buttons-div {
   text-align: center;
   padding: 1em;
-  margin-top: 20%;
+  margin-top: 5%;
   border-top: 0.1em solid #999999;
 }

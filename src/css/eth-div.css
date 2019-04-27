@@ -9,6 +9,7 @@
 #eth-address-div {
   padding: 2em;
   border-bottom: 2px solid #999999;
+  margin-bottom: 1em;
 }
 
 #eth-address-div>img {
@@ -29,14 +30,6 @@
   float: right;
 }
 
-button {
-  padding-left: 1.5em;
-  padding-right: 1.5em;
-  padding-top: 0.7em;
-  padding-bottom: 0.7em;
-  font-size: 1.2em;
-}
-
 h3 {
   font-size: 1.7em;
 }
@@ -44,7 +37,6 @@ h3 {
 #register-eth-did-div {
   padding-left: 2em;
   padding-bottom: 1em;
-  border-bottom: 2px solid #999999;
 }
 
 #import-eth-did-button {
@@ -54,11 +46,9 @@ h3 {
 #register-eth-username-div {
   padding-left: 2em;
   padding-bottom: 1em;
-  border-bottom: 2px solid #999999;
 }
 
 #eth-settings-div {
   padding-left: 2em;
   padding-bottom: 1em;
-  border-bottom: 2px solid #999999;
 }

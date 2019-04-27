@@ -311,7 +311,7 @@ function createWindow(url) {
         url: url,
         type: "popup",
         width: 330,
-        height: 480
+        height: 390
       },
       async (window) => {
         var tab = window.tabs[0];

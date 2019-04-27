@@ -100,7 +100,7 @@ function loadAccount(accountDetails) {
       else
         profileId = ethAccount["did"];
 
-      $("#profile-id-view").val(profileId);
+      $("#profile-id-view").html(profileId);
       $("#register-eth-did-button").prop("disabled", true);
     }
 
